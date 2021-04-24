@@ -1,5 +1,4 @@
 const { expect } = require('chai')
-const { validate } = require('revalidator')
 
 const {
   calcGPA,
@@ -7,7 +6,7 @@ const {
   sumGrades
 } = require('../lib/calculate')
 
-const { schema } = require('../lib/schema/studentGrades')
+const { validateInput } = require('../lib/student')
 
 describe('calculate', () => {
   describe('single student record', () => {
@@ -23,7 +22,7 @@ describe('calculate', () => {
     }
 
     it('should be a valid student record', () => {
-      const { valid } = validate(student, schema)
+      const { valid } = validateInput(student)
 
       expect(valid).to.be.true
     })
@@ -127,7 +126,7 @@ describe('calculate', () => {
 
     it('should contain only valid student records', () => {
       const invalidRecords = students.filter(student => {
-        const { valid } = validate(student, schema)
+        const { valid } = validateInput(student)
 
         return !valid
       })
