@@ -47,7 +47,7 @@ describe('schema/studentGrades', () => {
   describe('namePattern regex', () => {
     it('should contain only valid inputs', () => {
       const validGradeInputs = [ 'A', 'a', 'A-', 'b+', 'B', 'b-', 'C+', 'c', 'C-', 'd+', 'd', 'D-', 'F', 'f' ]
-      
+
       expect(validateRegex(validGradeInputs, gradePattern)).to.deep.equal(validGradeInputs)
     })
 
