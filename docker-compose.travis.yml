@@ -1,0 +1,15 @@
+version: '2.4'
+services:
+  app:
+    build: .
+    command: 'npm run travis'
+    image: internship_qualifier
+    mem_reservation: "1024m"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4.5
+    restart: always
+    expose:
+      - 27017
