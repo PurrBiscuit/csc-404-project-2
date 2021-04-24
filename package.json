@@ -5,19 +5,23 @@
   "scripts": {
     "lint": "eslint --ext js .",
     "start": "nodemon ./bin/www",
-    "test": "node test/main",
+    "test": "mocha --recursive",
     "travis": "npm run lint && npm run test"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
-    "eslint": "^7.21.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "log-symbols": "^4.1.0",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
+    "ramda": "^0.27.1",
     "revalidator": "^0.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "^7.25.0",
+    "mocha": "^8.3.2"
   }
 }
