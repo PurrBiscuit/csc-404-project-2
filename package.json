@@ -5,8 +5,7 @@
   "scripts": {
     "lint": "eslint --ext js .",
     "start": "nodemon ./bin/www",
-    "test": "node test-archive/main",
-    "test:mocha": "mocha --recursive",
+    "test": "mocha --recursive",
     "travis": "npm run lint && npm run test"
   },
   "dependencies": {
