@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint --ext js .",
     "start": "nodemon ./bin/www",
-    "test": "node test/main",
+    "test": "node test-archive/main",
     "travis": "npm run lint && npm run test"
   },
   "dependencies": {
