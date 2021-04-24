@@ -374,8 +374,6 @@ describe('student', () => {
       lastName: normalizeName('smith-SMartyPantsington'),
     }
 
-    console.log(normalizedStudent)
-
     it('should be valid after normalization', () => {
       const { valid } = validateInput(normalizedStudent)
 
