@@ -1,6 +1,6 @@
 {
-  "name": "csc-404-project-2",
-  "version": "0.0.1",
+  "name": "internship-qualifier",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "lint": "eslint --ext js .",
