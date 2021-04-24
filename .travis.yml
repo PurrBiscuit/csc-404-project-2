@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - docker compose build app
+  - docker-compose build app
 
 script:
-  - docker compose run --rm app npm run travis
+  - docker-compose run --rm app npm run travis
