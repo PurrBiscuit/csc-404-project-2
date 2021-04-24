@@ -354,24 +354,15 @@ describe('student', () => {
   })
 
   describe('student record with name that needs to be normalized', () => {
-    const student = {
-      firstName: 'SalLy',
-      lastName: 'smith-SMartyPantsington',
+    const normalizedStudent = {
+      firstName: normalizeName('SalLy'),
+      lastName: normalizeName('smith-SMartyPantsington'),
       courseGrades: {
         csc141: 'A',
         csc142: 'A-',
         csc240: 'B+',
         csc241: 'A-'
       }
-    }
-
-    const normalizedStudent = {
-      ...student,
-      courseGrades: {
-        ...student.courseGrades
-      },
-      firstName: normalizeName('SalLy'),
-      lastName: normalizeName('smith-SMartyPantsington'),
     }
 
     it('should be valid after normalization', () => {
