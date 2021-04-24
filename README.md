@@ -49,3 +49,15 @@ Once you are in the container and running the `mongo` command line you can enter
 #### Run Linter
 
 1. Start up the docker containers using a different command for the linter `docker compose run --rm app npm run lint`.
+
+### Mongo
+
+The internship qualifier application uses [mongodb](https://www.mongodb.com/2) as its data store.
+
+#### Useful `mongo` CLI commands
+
+Listed below are some helpful `mongo` CLI commands that can be used after `exec`ing into the `mongo` container or connecting remotely to your mongodb instance.
+
+- `show dbs` - show all dbs.
+- `use dbName` - connect to a database by name. (ie. `use students_db`)
+- `db.collectionName.find()` - return the first 20 records from that collection in the database you're currently connected to. (ie. `db.students.find()`)
