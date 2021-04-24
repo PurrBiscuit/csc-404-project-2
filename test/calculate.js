@@ -21,7 +21,7 @@ describe('calculate', () => {
       }
     }
 
-    it('should be a valid student record', () => {
+    it('should be valid', () => {
       const { valid } = validateInput(student)
 
       expect(valid).to.be.true
