@@ -2,6 +2,8 @@ version: '2.4'
 services:
   app:
     build: .
+    env_file:
+      - .env.default
     image: internship_qualifier
     mem_reservation: "1024m"
     ports:
