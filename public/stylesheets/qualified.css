@@ -1,3 +1,10 @@
+div.form-group input {
+  color: #666666;
+  font-size: 20px;
+  margin-bottom: 15px;
+  width: 100px;
+}
+
 div.main-container p {
   font-size: 24px;
   margin-bottom: 40px;
