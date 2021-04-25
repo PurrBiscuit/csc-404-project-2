@@ -5,7 +5,7 @@
  */
 
 const app = require('../app')
-const debug = require('debug')('csc-404-project-2:server')
+const debug = require('debug')('internship-qualifier')
 const http = require('http')
 const mongoose = require('mongoose')
 
