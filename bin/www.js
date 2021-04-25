@@ -13,8 +13,7 @@ const mongoose = require('mongoose')
  * Connect to MongoDB.
  */
 
-mongoose.connect('mongodb://localhost:27017/students_db', {
-  // mongoose.connect('mongodb://mongo:27017/students_db', {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 2000
