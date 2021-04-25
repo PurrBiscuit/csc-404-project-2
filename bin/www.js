@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URL, {
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 2000
 })
-  .then(res => {
+  .then(() => {
     console.log('Successfully connected to MongoDB using Mongoose!')
   })
   .catch(error => {

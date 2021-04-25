@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const { calcGPAs } = require('../lib/calculate')
-const { students } = require('../lib/data')
 const { filterQualified, sortStudents } = require('../lib/student')
 const studentRecords = require('../lib/model/student_model')
 
@@ -70,7 +69,6 @@ router.post('/', (req, res, next) => {
       console.log(`Error fetching users: ${error.message}`)
       next(error)
     })
-
 })
 
 module.exports = router

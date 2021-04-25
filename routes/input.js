@@ -1,22 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const { calcGPA } = require('../lib/calculate')
+const { courses, gradeScale } = require('../lib/data')
+const { normalizeName, validateInput } = require('../lib/student')
 const studentRecord = require('../lib/model/student_model')
-
-const {
-  courses,
-  gradeScale,
-  students
-} = require('../lib/data')
-
-const {
-  calcGPA
-} = require('../lib/calculate')
-
-const {
-  normalizeName,
-  validateInput
-} = require('../lib/student')
 
 const formatStudentRecord = ({
   firstName,
@@ -94,8 +82,6 @@ router.post('/', (req, res, next) => {
     student,
     partialGPA
   })
- 
-
 })
 
 module.exports = router
