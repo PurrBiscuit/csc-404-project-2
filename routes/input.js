@@ -94,6 +94,8 @@ router.post('/', (req, res, next) => {
     student,
     partialGPA
   })
+ 
+
 })
 
 module.exports = router
