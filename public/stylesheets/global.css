@@ -19,6 +19,17 @@ html {
   color: #666666;
 }
 
+input.submit {
+  border-radius: 12px;
+  border-width: 3px;
+  color: #666666;
+  height: 50px;
+  font-size: 24px;
+  margin-top: 10px;
+  padding: 5px 30px;
+  width: 220px;
+}
+
 .main-container {
   font-size: 20px;
   margin-left: auto;

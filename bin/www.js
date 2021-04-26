@@ -5,8 +5,32 @@
  */
 
 const app = require('../app')
-const debug = require('debug')('csc-404-project-2:server')
+const debug = require('debug')('internship-qualifier')
 const http = require('http')
+const mongoose = require('mongoose')
+
+/**
+ * Connect to MongoDB.
+ */
+
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 2000
+})
+  .then(() => {
+    console.log('Successfully connected to MongoDB using Mongoose!')
+  })
+  .catch(error => {
+    console.log('ERROR: ', error.message)
+  })
+
+
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', () => {
+//   console.log('Successfully connected to MongoDB using Mongoose!');
+// });
 
 /**
  * Normalize a port into a number, string, or false.

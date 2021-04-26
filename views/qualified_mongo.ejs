@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') %>
+  <link rel='stylesheet' href='/stylesheets/qualified.css' />
+
+  <body>
+    <div class="main-container">
+      <%- include('partials/navbar') %>
+        <div class="body-container">
+          <h1 class="title">Qualified Students</h1>
+          <form class action="/qualified" method="post">
+            <div class="form-group">
+              <label for="gpaFilter">Show Students with GPAs greater than or equal to: </label>
+              <input type="number" min=0 max =4 step='0.1' name="gpaFilter" id="gpaFilter" value="" placeholder="GPA" required>
+            </div>
+            <input class="submit" type="submit" value="submit" />
+          </form>
+          <% if (totalStudents) { %>
+            <p>
+              <%= students.length %> out of <%= totalStudents %> Students with GPAs greater than or equal to <%= gpaFilter %>
+            </p>
+            <% if (students.length) { %>
+              <table class="students">
+                <tr>
+                  <th class="students name-header">Last Name</th>
+                  <th class="students name-header">First Name</th>
+                  <th class="students partial-gpa-header">Partial GPA</th>
+                </tr>
+                <% if (locals.students) { %>
+                  <% students.forEach(({ firstName, lastName, partialGPA })=> { %>
+                    <tr>
+                      <td class="students">
+                        <%= lastName %>
+                      </td>
+                      <td class="students">
+                        <%= firstName %>
+                      </td>
+                      <td class="students partial-gpa">
+                        <%= partialGPA.toFixed(1) %>
+                      </td>
+                    </tr>
+                    <% }) %>
+                      <% } %>
+              </table>
+              <% } else { %>
+                <p>No qualifying students to display at this time.</p>
+                <% } %>
+                  <% } else { %>
+                    <p>No student records found in the system.</p>
+                    <% } %>
+        </div>
+        <%- include('partials/footer') %>
+    </div>
+  </body>
+
+</html>

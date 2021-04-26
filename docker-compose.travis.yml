@@ -3,6 +3,8 @@ services:
   app:
     build: .
     command: 'npm run travis'
+    env_file:
+      - .env.default
     image: internship_qualifier
     mem_reservation: "1024m"
     depends_on:

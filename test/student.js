@@ -446,7 +446,7 @@ describe('student', () => {
       }
     ]
 
-    it('should filter out qualified students from unqualified ones', () => {
+    it('should filter out qualified students from unqualified ones with default partial GPA of 2.5', () => {
       const correctRecords = [
         {
           firstName: 'Gary',
@@ -477,6 +477,33 @@ describe('student', () => {
       const removePartialGPAProp = map(dissoc('partialGPA'))
 
       const qualifiedStudents = compose(removePartialGPAProp, filterQualified)(students)
+
+      expect(qualifiedStudents).to.deep.equal(correctRecords)
+    })
+
+    it('should filter out qualified students from unqualified ones with partial GPA set to 3.0', () => {
+      const correctRecords = [
+        {
+          firstName: 'Freddie',
+          lastName: 'Mercury'
+        },
+        {
+          firstName: 'Rita',
+          lastName: 'Repulsa'
+        },
+        {
+          firstName: 'Bob',
+          lastName: 'Spongey'
+        },
+        {
+          firstName: 'Jacqueline',
+          lastName: 'Maplesmith'
+        }
+      ]
+
+      const removePartialGPAProp = map(dissoc('partialGPA'))
+
+      const qualifiedStudents = compose(removePartialGPAProp, filterQualified)(students, 3.0)
 
       expect(qualifiedStudents).to.deep.equal(correctRecords)
     })
