@@ -3,6 +3,7 @@ const { expect } = require('chai')
 
 const {
   filterQualified,
+  formatStudentRecord,
   isGPAQualified,
   normalizeName,
   sortStudents
@@ -11,6 +12,32 @@ const {
 const { studentRecord } = require('../lib/model/studentModel')
 
 describe('student', () => {
+  describe('format student record input into correct mongoose schema shape', () => {
+    it('should format the object properly', () => {
+      const input = {
+        firstName: 'gary',
+        lastName: 'fredericks',
+        csc141: 'A',
+        csc142: 'B+',
+        csc240: 'C',
+        csc241: 'B-'
+      }
+
+      const expectedFormat = {
+        firstName: 'Gary',
+        lastName: 'Fredericks',
+        courseGrades: {
+          csc141: 'A',
+          csc142: 'B+',
+          csc240: 'C',
+          csc241: 'B-'
+        }
+      }
+
+      expect(formatStudentRecord(input)).to.deep.equal(expectedFormat)
+    })
+  })
+
   describe('student record with name that needs to be normalized', () => {
     const normalizedStudent = {
       firstName: normalizeName('SalLy'),
