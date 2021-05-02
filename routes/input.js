@@ -5,7 +5,7 @@ const router = express.Router()
 const { calcGPA } = require('../lib/calculate')
 const { courses, gradeScale } = require('../lib/data')
 const { normalizeName } = require('../lib/student')
-const studentRecord = require('../lib/model/studentModel')
+const { studentRecord } = require('../lib/model/studentModel')
 
 const formatErrors = errors =>
   map(path(['properties', 'message']))(errors)

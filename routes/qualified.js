@@ -3,7 +3,7 @@ const router = express.Router()
 
 const { calcGPAs } = require('../lib/calculate')
 const { filterQualified, sortStudents } = require('../lib/student')
-const studentRecords = require('../lib/model/studentModel')
+const { studentRecord } = require('../lib/model/studentModel')
 
 // /* GET qualified page. */
 // router.get('/', (req, res, next) => {
@@ -52,7 +52,7 @@ router.post('/', (req, res, next) => {
   const gpaFilter = req.body.gpaFilter
   console.log('GPA Filter:', gpaFilter)
 
-  studentRecords.find()
+  studentRecord.find()
     .then(records => {
       const studentsWithGPAs = calcGPAs(records)
       const qualifiedStudents = filterQualified(studentsWithGPAs, gpaFilter)
