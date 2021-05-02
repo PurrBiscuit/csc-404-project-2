@@ -8,9 +8,11 @@ A simple express application to allow for a user to input grade information for 
 
 Enter `npm install` to install all dependencies before proceeding to the subsections below.
 
+The examples listed below are ways to run the application on your host machine directly.  Please see the [Docker Instructions](#docker) for ways to run this application through our Docker configurations.
+
 ### Running Program
 
-Enter the `npm run start` command to start the program itself.  This will start the express server locally on port 3000 - visit http://localhost:3000 to access the app.
+Enter the `MONGODB_URL=<url_to_mongodb> npm run start` command to start the program itself.  This will start the express server locally on port 3000 - visit http://localhost:3000 to access the app.
 
 ### Running Test Suite
 
