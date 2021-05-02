@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
       res.render('qualifiedMongo', {
         students: sortStudents(qualifiedStudents),
         totalStudents: records.length,
-        gpaFilter: gpaFilter
+        gpaFilter
       })
 
     })
