@@ -52,7 +52,7 @@ router.post('/', (req, res, next) => {
   const gpaFilter = req.body.gpaFilter
   console.log('GPA Filter:', gpaFilter)
 
-  studentRecord.find()
+  studentRecord.find().lean()
     .then(records => {
       const studentsWithGPAs = calcGPAs(records)
       const qualifiedStudents = filterQualified(studentsWithGPAs, gpaFilter)
