@@ -41,27 +41,6 @@ router.get('/', (req, res) => {
   })
 })
 
-/* POST input page. */
-// router.post('/', (req, res) => {
-//   const student = formatStudentRecord(req.body)
-//   const { errors, valid } = validateInput(student)
-//   let partialGPA
-
-//   if (valid) {
-//     students.push(student)
-
-//     partialGPA = calcGPA(student)
-//   }
-
-//   res.render('input', {
-//     courses,
-//     errors,
-//     gradeScale,
-//     student,
-//     partialGPA
-//   })
-// })
-
 /* POST input page.
  Create mongoDB document */
 router.post('/', (req, res, next) => {
