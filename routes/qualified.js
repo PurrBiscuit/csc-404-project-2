@@ -3,7 +3,7 @@ const router = express.Router()
 
 const { calcGPAs } = require('../lib/calculate')
 const { filterQualified, sortStudents } = require('../lib/student')
-const studentRecords = require('../lib/model/student_model')
+const studentRecords = require('../lib/model/studentModel')
 
 // /* GET qualified page. */
 // router.get('/', (req, res, next) => {

@@ -4,7 +4,7 @@ const router = express.Router()
 const { calcGPA } = require('../lib/calculate')
 const { courses, gradeScale } = require('../lib/data')
 const { normalizeName, validateInput } = require('../lib/student')
-const studentRecord = require('../lib/model/student_model')
+const studentRecord = require('../lib/model/studentModel')
 
 const formatStudentRecord = ({
   firstName,
