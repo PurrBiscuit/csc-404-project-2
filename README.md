@@ -34,7 +34,7 @@ If you want to run any of the commands with docker instead of locally, you can d
 2. Navigate to http://localhost:3000 to see the running internship qualifier application.
 3. Navigate to http://localhost:8081 to see an admin console for the running `mongo` container.
 
-##### Connecting into `mongo` container
+#### Connecting into `mongo` container
 
 **The `docker compose exec` command is available in [Docker Desktop versions 3.2.0](https://docs.docker.com/docker-for-mac/release-notes/#docker-desktop-320) or greater**
 
