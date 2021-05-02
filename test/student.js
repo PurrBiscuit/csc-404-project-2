@@ -25,7 +25,7 @@ describe('student', () => {
 
     it('should be valid after normalization', () => {
       const student = new studentRecord(normalizedStudent)
-    
+
       expect(student.validateSync()).to.be.undefined
     })
 

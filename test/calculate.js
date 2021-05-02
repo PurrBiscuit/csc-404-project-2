@@ -23,7 +23,7 @@ describe('calculate', () => {
 
     it('should be valid', () => {
       const studentMongoose = new studentRecord(student)
-    
+
       expect(studentMongoose.validateSync()).to.be.undefined
     })
 
