@@ -81,11 +81,11 @@ describe('student', () => {
       expect(isGPAQualified(1.0)).to.be.false
     )
 
-    it('should qualify with a GPA filter of 3.3 passed in', () => 
+    it('should qualify with a GPA filter of 3.3 passed in', () =>
       expect(isGPAQualified(3.5, 3.3)).to.be.true
     )
 
-    it('should not qualify with a GPA filter of 3.3 passed in', () => 
+    it('should not qualify with a GPA filter of 3.3 passed in', () =>
       expect(isGPAQualified(3.0, 3.3)).to.be.false
     )
   })
