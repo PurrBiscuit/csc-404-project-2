@@ -1,10 +1,14 @@
 const express = require('express')
+const { map, path } = require('ramda')
 const router = express.Router()
 
 const { calcGPA } = require('../lib/calculate')
 const { courses, gradeScale } = require('../lib/data')
-const { normalizeName, validateInput } = require('../lib/student')
+const { normalizeName } = require('../lib/student')
 const studentRecord = require('../lib/model/studentModel')
+
+const formatErrors = errors =>
+  map(path(['properties', 'message']))(errors)
 
 const formatStudentRecord = ({
   firstName,
@@ -62,26 +66,31 @@ router.get('/', (req, res) => {
  Create mongoDB document */
 router.post('/', (req, res, next) => {
   const student = formatStudentRecord(req.body)
-  const { errors, valid } = validateInput(student)
-  let partialGPA
 
-  if (valid) {
-    studentRecord.create(student)
-      .catch(error => {
-        console.log(`Error saving user: ${error.message}`)
-        next(error)
+  studentRecord.create(student)
+    .then(() => {
+      const partialGPA = calcGPA(student)
+
+      res.render('input', {
+        courses,
+        gradeScale,
+        student,
+        partialGPA
       })
+    })
+    .catch(error => {
+      console.log(`Error saving user: ${error.message}`)
 
-    partialGPA = calcGPA(student)
-  }
-
-  res.render('input', {
-    courses,
-    errors,
-    gradeScale,
-    student,
-    partialGPA
-  })
+      if (error.name === 'ValidationError')
+        res.render('input', {
+          courses,
+          errors: formatErrors(error.errors),
+          gradeScale,
+          student
+        })
+      else
+        next(error)
+    })
 })
 
 module.exports = router
