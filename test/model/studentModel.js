@@ -331,4 +331,37 @@ describe('model/studentModel', () => {
         )
     )
   })
+
+  describe('student record with valid input', () => {
+    afterEach('clean the mongo test db collection', () =>
+      studentRecord.deleteMany({})
+    )
+
+    const student = {
+      firstName: 'Markus',
+      lastName: 'Dingo',
+      courseGrades: {
+        csc141: 'B',
+        csc142: 'C',
+        csc240: 'A-',
+        csc241: 'B+'
+      }
+    }
+
+    it('should create the record in the database', () =>
+      studentRecord.create(student)
+        .then(async () => {
+          const record = await studentRecord.findOne(student)
+          expect(record).to.not.be.null
+        })
+    )
+
+    it('should assign an id property to the student record', () =>
+      studentRecord.create(student)
+        .then(async () => {
+          const record = await studentRecord.findOne(student)
+          expect(record).to.have.property('_id')
+        })
+    )
+  })
 })

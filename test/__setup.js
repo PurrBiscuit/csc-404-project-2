@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
  */
 
 before('connect to mongo db', () =>
-  mongoose.connect(process.env.MONGODB_URL, {
+  mongoose.connect(process.env.MONGODB_TEST_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 2000
