@@ -4,31 +4,8 @@ const router = express.Router()
 const { calcGPA } = require('../lib/calculate')
 const { courses, gradeScale } = require('../lib/data')
 const { formatErrors } = require('../lib/utils')
-const { normalizeName } = require('../lib/student')
+const { formatStudentRecord } = require('../lib/student')
 const { studentRecord } = require('../lib/model/studentModel')
-
-const formatStudentRecord = ({
-  firstName,
-  lastName,
-  csc141,
-  csc142,
-  csc240,
-  csc241
-}) => {
-  firstName = (firstName !== '') ? normalizeName(firstName) : undefined
-  lastName = (lastName !== '') ? normalizeName(lastName) : undefined
-
-  return {
-    firstName,
-    lastName,
-    courseGrades: {
-      csc141,
-      csc142,
-      csc240,
-      csc241
-    }
-  }
-}
 
 /* GET input page. */
 router.get('/', (req, res) => {
@@ -45,13 +22,11 @@ router.post('/', (req, res, next) => {
 
   studentRecord.create(student)
     .then(() => {
-      const partialGPA = calcGPA(student)
-
       res.render('input', {
         courses,
         gradeScale,
         student,
-        partialGPA
+        partialGPA: calcGPA(student)
       })
     })
     .catch(error => {
