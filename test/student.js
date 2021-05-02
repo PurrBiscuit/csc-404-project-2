@@ -13,28 +13,34 @@ const { studentRecord } = require('../lib/model/studentModel')
 
 describe('student', () => {
   describe('format student record input into correct mongoose schema shape', () => {
-    it('should format the object properly', () => {
-      const input = {
-        firstName: 'gary',
-        lastName: 'fredericks',
+    const input = {
+      firstName: 'gary',
+      lastName: 'fredericks',
+      csc141: 'A',
+      csc142: 'B+',
+      csc240: 'C',
+      csc241: 'B-'
+    }
+
+    const expectedFormat = {
+      firstName: 'Gary',
+      lastName: 'Fredericks',
+      courseGrades: {
         csc141: 'A',
         csc142: 'B+',
         csc240: 'C',
         csc241: 'B-'
       }
+    }
 
-      const expectedFormat = {
-        firstName: 'Gary',
-        lastName: 'Fredericks',
-        courseGrades: {
-          csc141: 'A',
-          csc142: 'B+',
-          csc240: 'C',
-          csc241: 'B-'
-        }
-      }
-
+    it('should format the object properly', () =>
       expect(formatStudentRecord(input)).to.deep.equal(expectedFormat)
+    )
+
+    it('should be valid after formatting', () => {
+      const student = new studentRecord(formatStudentRecord(input))
+
+      expect(student.validateSync()).to.be.undefined
     })
   })
 
@@ -50,12 +56,6 @@ describe('student', () => {
       }
     }
 
-    it('should be valid after normalization', () => {
-      const student = new studentRecord(normalizedStudent)
-
-      expect(student.validateSync()).to.be.undefined
-    })
-
     it('should normalize the name properties on the record', () => {
       const correctRecord = {
         firstName: 'Sally',
@@ -69,6 +69,12 @@ describe('student', () => {
       }
 
       expect(normalizedStudent).to.deep.equal(correctRecord)
+    })
+
+    it('should be valid after normalization', () => {
+      const student = new studentRecord(normalizedStudent)
+
+      expect(student.validateSync()).to.be.undefined
     })
   })
 
