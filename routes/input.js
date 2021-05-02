@@ -1,14 +1,11 @@
 const express = require('express')
-const { map, path } = require('ramda')
 const router = express.Router()
 
 const { calcGPA } = require('../lib/calculate')
 const { courses, gradeScale } = require('../lib/data')
+const { formatErrors } = require('../lib/utils')
 const { normalizeName } = require('../lib/student')
 const { studentRecord } = require('../lib/model/studentModel')
-
-const formatErrors = errors =>
-  map(path(['properties', 'message']))(errors)
 
 const formatStudentRecord = ({
   firstName,
