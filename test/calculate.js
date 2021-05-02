@@ -6,7 +6,7 @@ const {
   sumGrades
 } = require('../lib/calculate')
 
-const { validateInput } = require('../lib/student')
+const { studentRecord } = require('../lib/model/studentModel')
 
 describe('calculate', () => {
   describe('single student record', () => {
@@ -22,9 +22,9 @@ describe('calculate', () => {
     }
 
     it('should be valid', () => {
-      const { valid } = validateInput(student)
-
-      expect(valid).to.be.true
+      const studentMongoose = new studentRecord(student)
+    
+      expect(studentMongoose.validateSync()).to.be.undefined
     })
 
     it('should sum up the grades to a correct raw score of 5.0', () => {
@@ -126,9 +126,9 @@ describe('calculate', () => {
 
     it('should contain only valid student records', () => {
       const invalidRecords = students.filter(student => {
-        const { valid } = validateInput(student)
+        const studentMongoose = new studentRecord(student)
 
-        return !valid
+        return studentMongoose.validateSync()
       })
 
       expect(invalidRecords).to.be.of.length(0)
