@@ -46,12 +46,20 @@ describe('student', () => {
   })
 
   describe('partialGPA is qualified or not', () => {
-    it('should qualify with a partial GPA of 2.5', () =>
+    it('should qualify with the partial GPA filter set to the default of 2.5', () =>
       expect(isGPAQualified(2.5)).to.be.true
     )
 
-    it('should not qualify with a partial GPA of 1.0', () =>
+    it('should not qualify with the partial GPA filter set to the default of 2.5', () =>
       expect(isGPAQualified(1.0)).to.be.false
+    )
+
+    it('should qualify with a GPA filter of 3.3 passed in', () => 
+      expect(isGPAQualified(3.5, 3.3)).to.be.true
+    )
+
+    it('should not qualify with a GPA filter of 3.3 passed in', () => 
+      expect(isGPAQualified(3.0, 3.3)).to.be.false
     )
   })
 
