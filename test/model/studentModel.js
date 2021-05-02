@@ -58,6 +58,26 @@ describe('model/studentModel', () => {
     })
   })
 
+  describe('student record with firstName property over max length', () => {
+    const overMaxLengthFirstName = {
+      firstName: 'asdsadsadsadasdasfgfehetrjrhmdfbdfbsdfdsffhehf',
+      lastName: 'Smith',
+      courseGrades: {
+        csc141: 'A',
+        csc142: 'B',
+        csc240: 'F',
+        csc241: 'D'
+      }
+    }
+
+    it('should return the correct error message', () =>
+      studentRecord.create(overMaxLengthFirstName)
+        .catch(error => {
+          expect(error.errors.firstName.properties.message).to.equal('Name can only contain 45 characters max.')
+        })
+    )
+  })
+
   describe('student record with invalid firstName property', () => {
     const invalidFirstName = {
       firstName: '123',
@@ -93,6 +113,26 @@ describe('model/studentModel', () => {
       studentRecord.create(missingFirstName)
         .catch(error => {
           expect(error.errors.firstName.properties.message).to.equal('Please enter a value for the required field.')
+        })
+    )
+  })
+
+  describe('student record with lastName property over max length', () => {
+    const overMaxLengthLastName = {
+      firstName: 'Mike',
+      lastName: 'asdsadsadsadasdasfgfehetrjrhmdfbdfbsdfdsffhehf',
+      courseGrades: {
+        csc141: 'A',
+        csc142: 'B',
+        csc240: 'F',
+        csc241: 'D'
+      }
+    }
+
+    it('should return the correct error message', () =>
+      studentRecord.create(overMaxLengthLastName)
+        .catch(error => {
+          expect(error.errors.lastName.properties.message).to.equal('Name can only contain 45 characters max.')
         })
     )
   })
