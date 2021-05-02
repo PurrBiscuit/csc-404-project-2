@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
       const qualifiedStudents = filterQualified(studentsWithGPAs, gpaFilter)
       const sortedStudents = sortStudents(qualifiedStudents)
 
-      res.render('qualified_mongo', {
+      res.render('qualifiedMongo', {
         students: sortedStudents,
         totalStudents: records.length,
         gpaFilter: gpaFilter
