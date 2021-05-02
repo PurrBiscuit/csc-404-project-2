@@ -8,13 +8,15 @@ A simple express application to allow for a user to input grade information for 
 
 Enter `npm install` to install all dependencies before proceeding to the subsections below.
 
+The examples listed below are ways to run the application on your host machine directly.  It's recommended to use Docker to run this locally however since the configurations are all in place for it already and it makes for a repeatable, predictable development environment.  Please see the [Docker Instructions](#docker) for ways to run this application through our Docker configurations.
+
 ### Running Program
 
-Enter the `npm run start` command to start the program itself.  This will start the express server locally on port 3000 - visit http://localhost:3000 to access the app.
+Enter the `MONGODB_URL=<url_to_mongodb> npm run start` command to start the program itself.  This will start the express server locally on port 3000 - visit http://localhost:3000 to access the app.
 
 ### Running Test Suite
 
-Enter the `npm run test` command to run the test suite.
+Enter the `MONGODB_TEST_URL=<url_to_mongodb> npm run test` command to run the test suite.  Running it this way will require you to have `mongo` running on your local machine already or have an instance of it running remotely that's accessibly from your host machine.  It's also recommended to run the test suite using the Docker commands below whenever possible.
 
 ### Running Linter
 
