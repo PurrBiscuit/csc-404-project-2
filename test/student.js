@@ -309,4 +309,33 @@ describe('student', () => {
       expect(sortStudents(unsortedStudents)).to.deep.equal(correctRecords)
     })
   })
+  describe('test against dynamic gpa numbers', () => {
+    it('gpa should only be between 0 and 4', () => {
+      let validGPAs = [
+        {valid: 0},
+        {valid: 1},
+        {valid: 2},
+        {valid: 3},
+        {valid: 4},
+        {valid: 0.2},
+        {valid: 0.8},
+        {valid: 3.2},
+        {valid: 2.5},
+
+      ]
+      //expect(validGPAs).to.be.a('number');
+      validGPAs.forEach(({valid}) => expect(valid).to.be.within(0, 4));
+    })
+    it('gpa should not be outside of 0 and 4',() => {
+      let invalidGPAs = [
+        {invalid: -1},
+        {invalid: -6},
+        {invalid: 5},
+        {invalid: 19},
+        {invalid: 6.3},
+      ]
+      //expect(invalidGPAs).to.be.a('number');
+      invalidGPAs.forEach(({invalid}) => expect(invalid).to.not.be.within(0, 4));
+    })
+    })
 })
