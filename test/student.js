@@ -3,353 +3,44 @@ const { expect } = require('chai')
 
 const {
   filterQualified,
+  formatStudentRecord,
   isGPAQualified,
   normalizeName,
-  sortStudents,
-  validateInput
+  sortStudents
 } = require('../lib/student')
 
+const { studentRecord } = require('../lib/model/studentModel')
+
 describe('student', () => {
-  describe('student record with invalid firstName property', () => {
-    const invalidFirstName = {
-      firstName: '123',
-      lastName: 'Smith',
+  describe('format student record input into correct mongoose schema shape', () => {
+    const input = {
+      firstName: 'gary',
+      lastName: 'fredericks',
+      csc141: 'A',
+      csc142: 'B+',
+      csc240: 'C',
+      csc241: 'B-'
+    }
+
+    const expectedFormat = {
+      firstName: 'Gary',
+      lastName: 'Fredericks',
       courseGrades: {
         csc141: 'A',
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidFirstName)
-
-      expect(valid).to.be.false
-    })
-
-
-    it('should have correct error message object', () => {
-      const error = {
-        firstName: '45 characters max containing only letters and dashes.'
-      }
-
-      const { errors } = validateInput(invalidFirstName)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing firstName property', () => {
-    const missingFirstName = {
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingFirstName)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        firstName: 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingFirstName)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with invalid lastName property', () => {
-    const invalidLastName = {
-      firstName: 'Mike',
-      lastName: '123',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidLastName)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        lastName: '45 characters max containing only letters and dashes.'
-      }
-
-      const { errors } = validateInput(invalidLastName)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing lastName property', () => {
-    const missingLastName = {
-      firstName: 'Mike',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingLastName)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        lastName: 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingLastName)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with invalid courseGrades.csc141 property', () => {
-    const invalidCSC141CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'X',
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidCSC141CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc141': 'Single letter grades accepted. Include "-" or "+" if necessary'
-      }
-
-      const { errors } = validateInput(invalidCSC141CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing courseGrades.csc141 property', () => {
-    const missingCSC141CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc142: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingCSC141CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc141': 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingCSC141CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with invalid courseGrades.csc142 property', () => {
-    const invalidCSC142CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'X',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidCSC142CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc142': 'Single letter grades accepted. Include "-" or "+" if necessary'
-      }
-
-      const { errors } = validateInput(invalidCSC142CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing courseGrades.csc142 property', () => {
-    const missingCSC142CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'B',
-        csc240: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingCSC142CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc142': 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingCSC142CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with invalid courseGrades.csc240 property', () => {
-    const invalidCSC240CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'B',
-        csc240: 'X',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidCSC240CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc240': 'Single letter grades accepted. Include "-" or "+" if necessary'
-      }
-
-      const { errors } = validateInput(invalidCSC240CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing courseGrades.csc240 property', () => {
-    const missingCSC240CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'B',
-        csc142: 'F',
-        csc241: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingCSC240CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc240': 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingCSC240CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with invalid courseGrades.csc241 property', () => {
-    const invalidCSC241CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'A',
-        csc142: 'B',
+        csc142: 'B+',
         csc240: 'C',
-        csc241: 'X'
+        csc241: 'B-'
       }
     }
 
-    it('should be invalid', () => {
-      const { valid } = validateInput(invalidCSC241CourseGrade)
+    it('should format the object properly', () =>
+      expect(formatStudentRecord(input)).to.deep.equal(expectedFormat)
+    )
 
-      expect(valid).to.be.false
-    })
+    it('should be valid after formatting', () => {
+      const student = new studentRecord(formatStudentRecord(input))
 
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc241': 'Single letter grades accepted. Include "-" or "+" if necessary'
-      }
-
-      const { errors } = validateInput(invalidCSC241CourseGrade)
-
-      expect(errors).to.deep.equal(error)
-    })
-  })
-
-  describe('student record with missing courseGrades.csc241 property', () => {
-    const missingCSC241CourseGrade = {
-      firstName: 'Mike',
-      lastName: 'Smith',
-      courseGrades: {
-        csc141: 'B',
-        csc142: 'F',
-        csc240: 'D'
-      }
-    }
-
-    it('should be invalid', () => {
-      const { valid } = validateInput(missingCSC241CourseGrade)
-
-      expect(valid).to.be.false
-    })
-
-    it('should have correct error message object', () => {
-      const error = {
-        'courseGrades.csc241': 'Please enter a value for the required field.'
-      }
-
-      const { errors } = validateInput(missingCSC241CourseGrade)
-
-      expect(errors).to.deep.equal(error)
+      expect(student.validateSync()).to.be.undefined
     })
   })
 
@@ -365,12 +56,6 @@ describe('student', () => {
       }
     }
 
-    it('should be valid after normalization', () => {
-      const { valid } = validateInput(normalizedStudent)
-
-      expect(valid).to.be.true
-    })
-
     it('should normalize the name properties on the record', () => {
       const correctRecord = {
         firstName: 'Sally',
@@ -385,15 +70,29 @@ describe('student', () => {
 
       expect(normalizedStudent).to.deep.equal(correctRecord)
     })
+
+    it('should be valid after normalization', () => {
+      const student = new studentRecord(normalizedStudent)
+
+      expect(student.validateSync()).to.be.undefined
+    })
   })
 
   describe('partialGPA is qualified or not', () => {
-    it('should qualify with a partial GPA of 2.5', () =>
+    it('should qualify with the partial GPA filter set to the default of 2.5', () =>
       expect(isGPAQualified(2.5)).to.be.true
     )
 
-    it('should not qualify with a partial GPA of 1.0', () =>
+    it('should not qualify with the partial GPA filter set to the default of 2.5', () =>
       expect(isGPAQualified(1.0)).to.be.false
+    )
+
+    it('should qualify with a GPA filter of 3.3 passed in', () =>
+      expect(isGPAQualified(3.5, 3.3)).to.be.true
+    )
+
+    it('should not qualify with a GPA filter of 3.3 passed in', () =>
+      expect(isGPAQualified(3.0, 3.3)).to.be.false
     )
   })
 
@@ -555,9 +254,9 @@ describe('student', () => {
 
     it('should contain only valid student records', () => {
       const invalidRecords = unsortedStudents.filter(student => {
-        const { valid } = validateInput(student)
+        const studentMongoose = new studentRecord(student)
 
-        return !valid
+        return studentMongoose.validateSync()
       })
 
       expect(invalidRecords).to.be.of.length(0)
