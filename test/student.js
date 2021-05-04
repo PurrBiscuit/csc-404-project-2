@@ -6,7 +6,8 @@ const {
   formatStudentRecord,
   isGPAQualified,
   normalizeName,
-  sortStudents
+  sortStudents,
+  isGPAvalid
 } = require('../lib/student')
 
 const { studentRecord } = require('../lib/model/studentModel')
@@ -323,8 +324,7 @@ describe('student', () => {
         {valid: 2.5},
 
       ]
-      //expect(validGPAs).to.be.a('number');
-      validGPAs.forEach(({valid}) => expect(valid).to.be.within(0, 4));
+      validGPAs.forEach(({valid}) => expect(isGPAvalid(valid)).to.be.true);
     })
     it('gpa should not be outside of 0 and 4',() => {
       let invalidGPAs = [
@@ -334,8 +334,7 @@ describe('student', () => {
         {invalid: 19},
         {invalid: 6.3},
       ]
-      //expect(invalidGPAs).to.be.a('number');
-      invalidGPAs.forEach(({invalid}) => expect(invalid).to.not.be.within(0, 4));
+      invalidGPAs.forEach(({invalid}) => expect(isGPAvalid(invalid)).to.false);
     })
     })
 })
